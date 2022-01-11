@@ -1,4 +1,4 @@
-from git_api.helpers.dependencies_manager import Dependencies
+from commons.dependencies import Dependencies
 
 
 if __name__ == "__main__":
@@ -10,7 +10,7 @@ if __name__ == "__main__":
     # db_provider.save_as(db_path)
     db_updater = dependencies.database_updater
     # db_updater.update_all()
-    from git_api.repositories.peewee.models import CommitModel, TagModel, MemberModel
+    from database.peewee.models import CommitModel, MemberModel
 
     members = MemberModel().select()
     member_names = [str(member.name).lower() for member in members]

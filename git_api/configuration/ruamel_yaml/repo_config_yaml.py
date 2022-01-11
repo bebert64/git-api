@@ -2,8 +2,8 @@ from pathlib import Path
 
 from ruamel.yaml import YAML
 
-from git_api.entities.config import Config
-from git_api.helpers.functions import get_resources_folder
+from configuration.config import Config
+from commons.functions import get_resources_folder
 from git_api.use_cases import IConfigRepository
 
 

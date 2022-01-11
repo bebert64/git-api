@@ -4,7 +4,7 @@ from typing import Optional, List
 
 from git_api.entities import GitEntity
 from entities import Branch, Commit, Group, Member, Project, Tag
-from git_api.helpers.types import GitlabId
+from commons.types import GitlabId
 from .models import (
     CommitModel,
     GroupModel,

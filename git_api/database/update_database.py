@@ -9,7 +9,7 @@ if TYPE_CHECKING:
         ConfigProvider,
         IEntitiesRepository,
     )
-    from git_api.helpers.types import GitlabId
+    from commons.types import GitlabId
 
 
 def iterate_over_root_groups(func: Callable) -> Callable:

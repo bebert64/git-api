@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from datetime import date
 from typing import Optional
 
-from helpers.types import GitlabId
+from commons.types import GitlabId
 
 
 @dataclass

@@ -1,2 +1,2 @@
-from .entities_repo_peewee import EntitiesRepoPeewee
+from .repo_entities_peewee import EntitiesRepoPeewee
 from .initialize_database import DatabaseInitializerPeewee

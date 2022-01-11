@@ -8,9 +8,6 @@ Defines :
 
 
 import dataclasses
-from typing import List
-
-from git_api.helpers.types import GitlabId
 
 
 @dataclasses.dataclass
