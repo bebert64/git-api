@@ -1,0 +1,21 @@
+name: git_api
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python
+  - requests
+  - ruamel.yaml
+  - peewee
+  - black
+  - mypy
+  - pylint
+  - pytest
+  - pytest-cov
+  - pytest-mock
+  - pytest-qt
+  - pyautogui
+  - pip
+  - pip:
+    - pyside6
+prefix: C:\Users\CassanR\Miniconda3\envs\git_api
