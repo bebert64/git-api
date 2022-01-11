@@ -4,21 +4,23 @@
 
 from __future__ import annotations
 
-from git_api.repositories import (
+from git_api.configuration import (
     ConfigRepoYaml,
+    ConfigProvider,
+    IConfigRepository,
+)
+from git_api.database import (
     EntitiesRepoPeewee,
     DatabaseInitializerPeewee,
-)
-from git_api.use_cases import (
     DatabaseProvider,
-    APIProvider,
-    ConfigProvider,
     IDatabaseInitializer,
-    IConfigRepository,
-    JSONParser,
     DatabaseUpdater,
-    GitRepositoryManager,
     IEntitiesRepository,
+)
+from git_api.synchronize_with_gitlab import (
+    APIProvider,
+    JSONParser,
+    GitRepositoryManager,
 )
 
 
