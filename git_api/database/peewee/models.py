@@ -13,7 +13,7 @@ database = SqliteDatabase(None)
 class BaseModel(Model):
     gitlab_id = CharField(primary_key=True)
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
         database = database
 
 
