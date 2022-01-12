@@ -49,7 +49,7 @@ class DatabaseProvider:
                 self.database_path = None
         return self.database_path
 
-    def _get_empty_database_path(self):
+    def _get_empty_database_path(self) -> Path:
         self.database_path = get_package_folder() / "db_temp.gadb"
         return self.database_path
 
