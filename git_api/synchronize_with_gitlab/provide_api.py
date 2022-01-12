@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, List, Optional, Dict, cast
 
 import requests
 
-from .query_graphql import QUERY_GRAPHQL as query_graphql_raw
+from .query_graphql import QUERY_GRAPHQL as QUERY_GRAPHQL_RAW
 from .types import JsonMasterData, JsonCommit, JsonTag, JsonBranch, Json
 
 if TYPE_CHECKING:
@@ -114,5 +114,5 @@ class APIProvider:
 
     def _get_query_graphql(self) -> str:
         config = self._config_provider.get_config_instance()
-        query = query_graphql_raw.replace("{{root_group_id}}", config.root_group_id)
+        query = QUERY_GRAPHQL_RAW.replace("{{root_group_id}}", config.root_group_id)
         return query
