@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from entities import Branch, Commit, Group, Member, Project, Tag
+from git_api.commons.entities_gitlab import Branch, Commit, Group, Member, Project, Tag
 
 
 class JSONParser:

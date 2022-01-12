@@ -2,9 +2,8 @@ from __future__ import annotations
 
 from typing import Optional, List
 
-from git_api.entities import GitEntity
-from entities import Branch, Commit, Group, Member, Project, Tag
-from commons.types import GitlabId
+from git_api.commons.entities_gitlab import GitEntity, Branch, Commit, Group, Member, Project, Tag
+from git_api.commons.types import GitlabId
 from .models import (
     CommitModel,
     GroupModel,
@@ -15,7 +14,7 @@ from .models import (
     BranchModel,
 )
 
-from git_api.use_cases import IEntitiesRepository
+from ..update_database import IEntitiesRepository
 
 
 class EntitiesRepoPeewee:

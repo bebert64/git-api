@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 from typing import Optional, Protocol, runtime_checkable
 
-from commons.functions import get_package_folder
+from git_api.commons.functions import get_package_folder
 
 
 class DatabaseProvider:

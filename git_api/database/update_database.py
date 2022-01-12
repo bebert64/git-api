@@ -1,15 +1,24 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Callable, List, Any
+from typing import (
+    TYPE_CHECKING,
+    Callable,
+    List,
+    Any,
+    runtime_checkable,
+    Protocol,
+    Optional,
+)
 
 if TYPE_CHECKING:
-    from git_api.use_cases import (
+    from git_api.synchronize_with_gitlab import (
         APIProvider,
         JSONParser,
-        ConfigProvider,
-        IEntitiesRepository,
     )
-    from commons.types import GitlabId
+    from git_api.configuration import ConfigProvider
+    from git_api.database import IEntitiesRepository
+    from git_api.commons.types import GitlabId
+    from git_api.commons.entities_gitlab import Group, Member, Project
 
 
 def iterate_over_root_groups(func: Callable) -> Callable:

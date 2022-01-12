@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from typing import Protocol, runtime_checkable
 
-from git_api.entities import Config
+from .config import Config
 
 
 class ConfigProvider:

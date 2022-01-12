@@ -4,7 +4,7 @@ from .models import (
     database as peewee_database,
     BaseModel,
 )
-from database.provide_database import IDatabaseInitializer
+from ..provide_database import IDatabaseInitializer
 
 
 class DatabaseInitializerPeewee:

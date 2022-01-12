@@ -4,7 +4,7 @@ import requests
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from git_api.use_cases import ConfigProvider
+    from git_api.configuration import ConfigProvider
 
 
 class APIProvider:

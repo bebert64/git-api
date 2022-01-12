@@ -3,7 +3,8 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from git_api.use_cases import IEntitiesRepository, APIProvider
+    from git_api.database import IEntitiesRepository
+    from git_api.synchronize_with_gitlab import APIProvider
 
 
 class GitRepositoryManager:
