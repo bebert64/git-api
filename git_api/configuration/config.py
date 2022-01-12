@@ -26,7 +26,9 @@ class Config:
 
     root_group_ids: list
     access_token: str
-    url_base: str
+    url_base_rest: str
+    url_base_graphql: str
+    db_suffix: str
 
     def __post_init__(self) -> None:
         for field in dataclasses.fields(self):

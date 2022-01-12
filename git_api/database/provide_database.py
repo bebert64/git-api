@@ -3,15 +3,23 @@ from __future__ import annotations
 import shutil
 import sys
 from pathlib import Path
-from typing import Optional, Protocol, runtime_checkable
+from typing import Optional, Protocol, runtime_checkable, TYPE_CHECKING
 
 from git_api.commons.functions import get_package_folder
 
+if TYPE_CHECKING:
+    from git_api.configuration import ConfigProvider
+
 
 class DatabaseProvider:
-    def __init__(self, database_initializer: IDatabaseInitializer):
+    def __init__(
+        self,
+        database_initializer: IDatabaseInitializer,
+        config_provider: ConfigProvider,
+    ):
         self.database_path: Optional[Path] = None
         self._database_initializer = database_initializer
+        self._config_provider = config_provider
 
     def set_up_db(self) -> None:
         db_path = self._get_argv_database_path()
@@ -33,7 +41,11 @@ class DatabaseProvider:
         except IndexError:
             self.database_path = None
         else:
-            if not self.database_path.exists() or self.database_path.suffix != ".gadb":
+            config = self._config_provider.get_config_instance()
+            if (
+                not self.database_path.exists()
+                or self.database_path.suffix != config.db_suffix
+            ):
                 self.database_path = None
         return self.database_path
 
