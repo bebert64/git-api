@@ -55,14 +55,15 @@ class JSONParser:
         except KeyError:
             pass
         else:
-            for data_group_child in data_group["descendantGroups"]["nodes"]:
+            for data_group_child in data_descendants:
                 groups_child, projects_child = self._parse_groups_and_projects(
                     data_group_child, root_group)
                 groups += groups_child
                 projects += projects_child
         return groups, projects
 
-    def _parse_project(self, data_project, root_group):
+    @staticmethod
+    def _parse_project(data_project, root_group):
         project = Project(
             gitlab_id=int(data_project["id"].split("/")[-1]),
             name=data_project["name"],
@@ -106,15 +107,11 @@ class JSONParser:
             title=commit_json["title"],
             author_name=commit_json["author_name"],
             author_email=commit_json["author_email"],
-            authored_date=commit_json["authored_date"][:10],
-            committer_name=commit_json["committer_name"],
-            committer_email=commit_json["committer_email"],
             committed_date=commit_json["committed_date"][:10],
-            created_at=commit_json["created_at"][:10],
             message=commit_json["message"],
             web_url=commit_json["web_url"],
             branch="",
-            member="",
+            member=None,
         )
 
     @staticmethod

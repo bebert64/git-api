@@ -60,7 +60,7 @@ class CommitModel(BaseModel):
     message = CharField()
     web_url = CharField()
     branch = ForeignKeyField(BranchModel)
-    member = ForeignKeyField(MemberModel)
+    member = ForeignKeyField(MemberModel, null=True)
 
 
 class TagModel(BaseModel):
