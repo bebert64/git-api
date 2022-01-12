@@ -13,7 +13,7 @@ class DatabaseProvider:
         self.database_path: Optional[Path] = None
         self._database_initializer = database_initializer
 
-    def set_up_db(self):
+    def set_up_db(self) -> None:
         db_path = self._get_argv_database_path()
         if db_path is None:
             db_path = self._get_empty_database_path()
@@ -23,6 +23,7 @@ class DatabaseProvider:
             self._database_initializer.init_db(db_path)
 
     def save_as(self, db_path: Path) -> None:
+        assert self.database_path is not None
         shutil.copy(self.database_path, db_path)
         self._database_initializer.reconnect(db_path)
 

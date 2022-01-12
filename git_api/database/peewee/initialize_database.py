@@ -8,7 +8,7 @@ from ..provide_database import IDatabaseInitializer
 
 
 class DatabaseInitializerPeewee:
-    def __init__(self):
+    def __init__(self) -> None:
         assert isinstance(self, IDatabaseInitializer)
 
     @staticmethod

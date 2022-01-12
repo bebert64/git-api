@@ -1,7 +1,6 @@
 from peewee import (
     Model,
     SqliteDatabase,
-    IntegerField,
     CharField,
     ForeignKeyField,
     DateField,

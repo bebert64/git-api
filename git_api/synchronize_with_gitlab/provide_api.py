@@ -45,7 +45,7 @@ class APIProvider:
             project_id, branch_name, push_access_levels, merge_access_level
         )
 
-    def _init_graphql(self):
+    def _init_graphql(self) -> None:
         url = "https://gitlab.com/api/graphql"
         self._session = requests.Session()
         config = self._config_provider.get_config_instance()
@@ -54,13 +54,13 @@ class APIProvider:
         self._session.headers.update({"Content-Type": "application/json"})
         return url
 
-    def _init_rest(self):
+    def _init_rest(self) -> None:
         self._session = requests.Session()
         config = self._config_provider.get_config_instance()
         token = config.access_token
         self._session.headers.update({"PRIVATE-TOKEN": token})
 
-    def _create_protected_branch(self, project_id, branch_name, push_access_level, merge_access_level):
+    def _create_protected_branch(self, project_id, branch_name, push_access_level, merge_access_level) -> None:
         end_point_url = f"projects/{project_id}/protected_branches"
         url_request = self._build_url(end_point_url)
         self._session.post(
@@ -72,12 +72,12 @@ class APIProvider:
             },
         )
 
-    def _delete_protected_branch(self, project_id, branch_name):
+    def _delete_protected_branch(self, project_id, branch_name) -> None:
         end_point_url = f"projects/{project_id}/protected_branches/{branch_name}"
         url_request = self._build_url(end_point_url)
         self._session.delete(url_request)
 
-    def _init_session(self):
+    def _init_session(self) -> None:
         config = self._config_provider.get_config_instance()
         token = config.access_token
         self._session.headers.update({"PRIVATE-TOKEN": token})

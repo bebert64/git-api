@@ -60,11 +60,11 @@ class DatabaseUpdater:
             self._entities_repository.save_member(member)
         self._update_branches()
 
-    def update_transactions(self):
+    def update_transactions(self) -> None:
         self._update_commits()
         self._update_tags()
 
-    def _update_branches(self):
+    def _update_branches(self) -> None:
         projects = self._entities_repository.get_projects_all()
         counter = 1
         for project in projects:
@@ -77,7 +77,7 @@ class DatabaseUpdater:
             print(f"{counter} / {len(projects)}")
             counter += 1
 
-    def _update_commits(self):
+    def _update_commits(self) -> None:
         branches = self._entities_repository.get_branches_all()
         counter = 1
         for branch in branches:
@@ -89,7 +89,7 @@ class DatabaseUpdater:
             print(f"{counter} / {len(branches)}")
             counter += 1
 
-    def _update_tags(self):
+    def _update_tags(self) -> None:
         projects = self._entities_repository.get_projects_all()
         counter = 1
         for project in projects:
@@ -101,4 +101,21 @@ class DatabaseUpdater:
                 self._entities_repository.save_tag(tag)
             print(f"{counter} / {len(projects)}")
             counter += 1
-        
+
+
+@runtime_checkable
+class IEntitiesRepository(Protocol):
+    def save(self, group: Group) -> None:
+        ...
+
+    def get_group_by_id(self, group_id: GitlabId) -> Optional[Group]:
+        ...
+
+    def get_groups_all(self) -> List[Group]:
+        ...
+
+    def get_member_by_id(self, member_id: GitlabId) -> Optional[Member]:
+        ...
+
+    def get_projects_all(self) -> List[Project]:
+        ...
