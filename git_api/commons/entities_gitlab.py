@@ -41,7 +41,7 @@ class Project(EntityGitlab):
 @dataclass
 class Branch(EntityGitlab):
     name: str
-    project: Project
+    project: Optional[Project]
     is_default: bool
     is_protected: bool
     developers_can_push: bool
@@ -51,14 +51,14 @@ class Branch(EntityGitlab):
 
 @dataclass
 class Commit(EntityGitlab):  # pylint: disable=too-many-instance-attributes
-    title: str
-    author_name: str
-    author_email: str
-    committed_date: date
-    message: str
-    web_url: str
-    branch: Branch
-    member: Member
+    title: str = ""
+    author_name: str = ""
+    author_email: str = ""
+    committed_date: date = date.today()
+    message: str = ""
+    web_url: str = ""
+    branch: Optional[Branch] = None
+    member: Optional[Member] = None
 
 
 @dataclass

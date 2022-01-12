@@ -24,11 +24,12 @@ class Config:
 
     """
 
-    root_group_ids: list
+    root_group_id: str
     access_token: str
     url_base_rest: str
     url_base_graphql: str
     db_suffix: str
+    format_date_json: str
 
     def __post_init__(self) -> None:
         for field in dataclasses.fields(self):

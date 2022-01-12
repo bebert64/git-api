@@ -1,5 +1,6 @@
-root_group_ids: [autajon_etudes]
+root_group_id: autajon_etudes
 access_token: glpat-dNL38GPPZeeKYskNaTJy
 url_base_rest: https://gitlab.com/api/v4/
 url_base_graphql: h
 db_suffix: .gadb
+format_date_json: "%Y-%m-%d"
