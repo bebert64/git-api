@@ -3,7 +3,8 @@ from __future__ import annotations
 from git_api.commons.entities_gitlab import Branch, Commit, Group, Member, Project, Tag
 
 
-class JSONParser:
+
+class JsonParser:
 
     access_level_to_role = {
         0: "No access",

@@ -13,7 +13,7 @@ from typing import (
 if TYPE_CHECKING:
     from git_api.synchronize_with_gitlab import (
         APIProvider,
-        JSONParser,
+        JsonParser,
     )
     from git_api.configuration import ConfigProvider
     from git_api.commons.types import GitlabId
@@ -41,7 +41,7 @@ class DatabaseUpdater:
     def __init__(
         self,
         api_provider: APIProvider,
-        json_parser: JSONParser,
+        json_parser: JsonParser,
         repo_entities: IRepoEntities,
         config_provider: ConfigProvider,
     ):

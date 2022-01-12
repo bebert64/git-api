@@ -19,7 +19,7 @@ from git_api.database import (
 )
 from git_api.synchronize_with_gitlab import (
     APIProvider,
-    JSONParser,
+    JsonParser,
     GitRepositoryManager,
 )
 
@@ -58,7 +58,7 @@ class Dependencies:
             self.database_initializer, self.config_provider
         )
         self.api_provider = APIProvider(self.config_provider)
-        self.json_parser = JSONParser()
+        self.json_parser = JsonParser(self.config_provider)
         self.database_updater = DatabaseUpdater(
             self.api_provider,
             self.json_parser,
