@@ -8,19 +8,19 @@ from git_api.commons.types import GitlabId
 
 
 @dataclass
-class GitEntity:
+class EntityGitlab:
     gitlab_id: GitlabId
 
 
 @dataclass
-class Member(GitEntity):
+class Member(EntityGitlab):
     username: str
     name: str
     role: str
 
 
 @dataclass
-class Group(GitEntity):
+class Group(EntityGitlab):
     name: str
     web_url: str
     description: str
@@ -29,7 +29,7 @@ class Group(GitEntity):
 
 
 @dataclass
-class Project(GitEntity):
+class Project(EntityGitlab):
     name: str
     description: str
     web_url: str
@@ -39,7 +39,7 @@ class Project(GitEntity):
 
 
 @dataclass
-class Branch(GitEntity):
+class Branch(EntityGitlab):
     name: str
     project: Project
     is_default: bool
@@ -50,7 +50,7 @@ class Branch(GitEntity):
 
 
 @dataclass
-class Commit(GitEntity):  # pylint: disable=too-many-instance-attributes
+class Commit(EntityGitlab):  # pylint: disable=too-many-instance-attributes
     title: str
     author_name: str
     author_email: str
@@ -62,7 +62,7 @@ class Commit(GitEntity):  # pylint: disable=too-many-instance-attributes
 
 
 @dataclass
-class Tag(GitEntity):
+class Tag(EntityGitlab):
     commit: Commit
     name: str
     message: str

@@ -10,12 +10,12 @@ from git_api.configuration import (
     IConfigRepository,
 )
 from git_api.database import (
-    EntitiesRepoPeewee,
+    RepoEntitiesPeewee,
     DatabaseInitializerPeewee,
     DatabaseProvider,
     IDatabaseInitializer,
     DatabaseUpdater,
-    IEntitiesRepository,
+    IRepoEntities,
 )
 from git_api.synchronize_with_gitlab import (
     APIProvider,
@@ -50,7 +50,7 @@ class Dependencies:
         self.config_provider = ConfigProvider(self.config_repo)
 
         # Create repositories
-        self.entities_repo: IEntitiesRepository = EntitiesRepoPeewee()
+        self.repo_entities: IRepoEntities = RepoEntitiesPeewee()
 
         # Create interactors
         self.database_initializer: IDatabaseInitializer = DatabaseInitializerPeewee()
@@ -62,9 +62,9 @@ class Dependencies:
         self.database_updater = DatabaseUpdater(
             self.api_provider,
             self.json_parser,
-            self.entities_repo,
+            self.repo_entities,
             self.config_provider,
         )
         self.git_repository_manager = GitRepositoryManager(
-            self.entities_repo, self.api_provider
+            self.repo_entities, self.api_provider
         )

@@ -16,7 +16,7 @@ if TYPE_CHECKING:
         JSONParser,
     )
     from git_api.configuration import ConfigProvider
-    from git_api.database import IEntitiesRepository
+    from git_api.database import IRepoEntities
     from git_api.commons.types import GitlabId
     from git_api.commons.entities_gitlab import Group, Member, Project
 
@@ -36,12 +36,12 @@ class DatabaseUpdater:
         self,
         api_provider: APIProvider,
         json_parser: JSONParser,
-        entities_repository: IEntitiesRepository,
+        repo_entities: IRepoEntities,
         config_provider: ConfigProvider,
     ):
         self._api_provider = api_provider
         self._json_parser = json_parser
-        self._entities_repository = entities_repository
+        self._repo_entities = repo_entities
         self._config_provider = config_provider
 
     def update_all(self) -> None:
@@ -55,11 +55,11 @@ class DatabaseUpdater:
             master_data_json
         )
         for group in groups:
-            self._entities_repository.save(group)
+            self._repo_entities.save(group)
         for project in projects:
-            self._entities_repository.save(project)
+            self._repo_entities.save(project)
         for member in members:
-            self._entities_repository.save(member)
+            self._repo_entities.save(member)
         self._update_branches()
 
     def update_transactions(self) -> None:
@@ -67,7 +67,7 @@ class DatabaseUpdater:
         self._update_tags()
 
     def _update_branches(self) -> None:
-        projects = self._entities_repository.get_projects_all()
+        projects = self._repo_entities.get_projects_all()
         counter = 1
         for project in projects:
             branch_jsons = self._api_provider.get_branches(project.gitlab_id)
@@ -75,12 +75,12 @@ class DatabaseUpdater:
             for branch in branches:
                 branch.gitlab_id = f"{project.gitlab_id}_{branch.name}"
                 branch.project = project
-                self._entities_repository.save(branch)
+                self._repo_entities.save(branch)
             print(f"{counter} / {len(projects)}")
             counter += 1
 
     def _update_commits(self) -> None:
-        branches = self._entities_repository.get_branches_all()
+        branches = self._repo_entities.get_branches_all()
         counter = 1
         for branch in branches:
             commits_json = self._api_provider.get_commits(
@@ -89,26 +89,26 @@ class DatabaseUpdater:
             commits = self._json_parser.parse_commits(commits_json)
             for commit in commits:
                 commit.branch = branch
-                self._entities_repository.save(commit)
+                self._repo_entities.save(commit)
             print(f"{counter} / {len(branches)}")
             counter += 1
 
     def _update_tags(self) -> None:
-        projects = self._entities_repository.get_projects_all()
+        projects = self._repo_entities.get_projects_all()
         counter = 1
         for project in projects:
             tag_jsons = self._api_provider.get_tags(project.gitlab_id)
             tags = self._json_parser.parse_tags(tag_jsons)
             for tag in tags:
-                commit = self._entities_repository.get_commit(tag.gitlab_id)
+                commit = self._repo_entities.get_commit(tag.gitlab_id)
                 tag.commit = commit
-                self._entities_repository.save(tag)
+                self._repo_entities.save(tag)
             print(f"{counter} / {len(projects)}")
             counter += 1
 
 
 @runtime_checkable
-class IEntitiesRepository(Protocol):
+class IRepoEntities(Protocol):
     def save(self, group: Group) -> None:
         ...
 

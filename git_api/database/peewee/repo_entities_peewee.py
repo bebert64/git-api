@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Optional, List
 
 from git_api.commons.entities_gitlab import (
-    GitEntity,
+    EntityGitlab,
     Branch,
     Commit,
     Group,
@@ -22,10 +22,10 @@ from .models import (
     BranchModel,
 )
 
-from ..update_database import IEntitiesRepository
+from ..update_database import IRepoEntities
 
 
-class EntitiesRepoPeewee:
+class RepoEntitiesPeewee:
 
     _entity_to_model = {
         Commit: CommitModel,
@@ -39,7 +39,7 @@ class EntitiesRepoPeewee:
     _model_to_entity = {Model: Entity for Entity, Model in _entity_to_model.items()}
 
     def __init__(self) -> None:
-        assert isinstance(self, IEntitiesRepository)
+        assert isinstance(self, IRepoEntities)
 
     def get_group_by_id(self, group_id: GitlabId) -> Optional[Group]:
         group_model = GroupModel.get_or_none(gitlab_id=group_id)
@@ -79,7 +79,7 @@ class EntitiesRepoPeewee:
 
     @staticmethod
     def save(entity: Entity) -> None:
-        model_type = EntitiesRepoPeewee._entity_to_model[type(entity)]
+        model_type = RepoEntitiesPeewee._entity_to_model[type(entity)]
         model = model_type.get_or_none(gitlab_id=entity.gitlab_id)
         force_insert = False
         if model is None:
@@ -87,7 +87,7 @@ class EntitiesRepoPeewee:
             force_insert = True
         for field in model_type._meta.sorted_field_names:
             field_value = getattr(entity, field)
-            if isinstance(field_value, GitEntity):
+            if isinstance(field_value, EntityGitlab):
                 field_value = field_value.gitlab_id
             setattr(model, field, field_value)
         model.save(force_insert=force_insert)
@@ -97,13 +97,13 @@ class EntitiesRepoPeewee:
         if model is None:
             entity = None
         else:
-            entity_type = EntitiesRepoPeewee._model_to_entity[type(model)]
+            entity_type = RepoEntitiesPeewee._model_to_entity[type(model)]
             model_type = type(model)
             entity_data = {}
             for field in model_type._meta.sorted_field_names:
                 field_value = getattr(model, field)
                 if isinstance(field_value, BaseModel):
-                    field_value = EntitiesRepoPeewee._get_entity(field_value)
+                    field_value = RepoEntitiesPeewee._get_entity(field_value)
                 entity_data[field] = field_value
             entity = entity_type(**entity_data)
         return entity
