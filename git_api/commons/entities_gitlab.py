@@ -50,7 +50,7 @@ class Branch(GitEntity):
 
 
 @dataclass
-class Commit(GitEntity):
+class Commit(GitEntity):  # pylint: disable=too-many-instance-attributes
     title: str
     author_name: str
     author_email: str
