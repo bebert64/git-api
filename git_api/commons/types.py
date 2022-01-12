@@ -1,1 +1,1 @@
-GitlabId = int
+GitlabId = str
