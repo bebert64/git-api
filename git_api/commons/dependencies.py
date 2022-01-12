@@ -54,7 +54,9 @@ class Dependencies:
 
         # Create interactors
         self.database_initializer: IDatabaseInitializer = DatabaseInitializerPeewee()
-        self.database_provider = DatabaseProvider(self.database_initializer)
+        self.database_provider = DatabaseProvider(
+            self.database_initializer, self.config_provider
+        )
         self.api_provider = APIProvider(self.config_provider)
         self.json_parser = JSONParser()
         self.database_updater = DatabaseUpdater(
