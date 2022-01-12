@@ -39,7 +39,7 @@ class JSONParser:
             web_url=data_group["webUrl"],
             description=data_group["description"],
             project_creation_level=data_group["projectCreationLevel"],
-            parent=parent
+            parent=parent,
         )
 
     def _parse_projects(self, data_group, root_group):
@@ -57,7 +57,8 @@ class JSONParser:
         else:
             for data_group_child in data_descendants:
                 groups_child, projects_child = self._parse_groups_and_projects(
-                    data_group_child, root_group)
+                    data_group_child, root_group
+                )
                 groups += groups_child
                 projects += projects_child
         return groups, projects

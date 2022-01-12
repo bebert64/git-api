@@ -16,7 +16,7 @@ class APIProvider:
     def get_master_data_json(self):
         url = self._init_graphql()
         print("launching request, please wait")
-        master_data_json = self._session.post(url, json={'query': query_test}).json()
+        master_data_json = self._session.post(url, json={"query": query_test}).json()
         print("data retrieved")
         return master_data_json
 
@@ -39,7 +39,9 @@ class APIProvider:
         protected_branches_json = self._get_response_json(end_point_url)
         return protected_branches_json
 
-    def modify_branch_protection(self, project_id, branch_name, push_access_levels, merge_access_level):
+    def modify_branch_protection(
+        self, project_id, branch_name, push_access_levels, merge_access_level
+    ):
         self._delete_protected_branch(project_id, branch_name)
         self._create_protected_branch(
             project_id, branch_name, push_access_levels, merge_access_level
@@ -60,7 +62,9 @@ class APIProvider:
         token = config.access_token
         self._session.headers.update({"PRIVATE-TOKEN": token})
 
-    def _create_protected_branch(self, project_id, branch_name, push_access_level, merge_access_level) -> None:
+    def _create_protected_branch(
+        self, project_id, branch_name, push_access_level, merge_access_level
+    ) -> None:
         end_point_url = f"projects/{project_id}/protected_branches"
         url_request = self._build_url(end_point_url)
         self._session.post(
@@ -68,7 +72,7 @@ class APIProvider:
             data={
                 "name": branch_name,
                 "push_access_level": str(push_access_level),
-                "merge_access_level": str(merge_access_level)
+                "merge_access_level": str(merge_access_level),
             },
         )
 
@@ -92,7 +96,6 @@ class APIProvider:
             data = {}
         api_response = self._session.get(url_request, data=data)
         return api_response.json()
-
 
 
 query_test = """

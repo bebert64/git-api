@@ -2,7 +2,15 @@ from __future__ import annotations
 
 from typing import Optional, List
 
-from git_api.commons.entities_gitlab import GitEntity, Branch, Commit, Group, Member, Project, Tag
+from git_api.commons.entities_gitlab import (
+    GitEntity,
+    Branch,
+    Commit,
+    Group,
+    Member,
+    Project,
+    Tag,
+)
 from git_api.commons.types import GitlabId
 from .models import (
     CommitModel,
@@ -54,12 +62,12 @@ class EntitiesRepoPeewee:
 
     def get_projects_all(self) -> List[Project]:
         project_models_all = ProjectModel.select()
-        return [self._get_entity(project_model) for project_model in project_models_all] 
+        return [self._get_entity(project_model) for project_model in project_models_all]
 
     def get_branches_all(self) -> List[Branch]:
         branch_models_all = BranchModel.select()
-        # return [self._get_branch(branch_model) for branch_model in branch_models_all] 
-        return [self._get_entity(branch_model) for branch_model in branch_models_all] 
+        # return [self._get_branch(branch_model) for branch_model in branch_models_all]
+        return [self._get_entity(branch_model) for branch_model in branch_models_all]
 
     def get_commit(self, gitlab_id) -> Commit:
         commit_model = CommitModel.get(CommitModel.gitlab_id == gitlab_id)
@@ -67,7 +75,7 @@ class EntitiesRepoPeewee:
 
     def get_commits_all(self) -> List[Commit]:
         commit_models_all = CommitModel.select()
-        return [self._get_entity(commit_model) for commit_model in commit_models_all] 
+        return [self._get_entity(commit_model) for commit_model in commit_models_all]
 
     @staticmethod
     def save(entity: Entity) -> None:
@@ -111,4 +119,3 @@ class EntitiesRepoPeewee:
     #         developers_can_merge = branch_model.developers_can_merge,
     #         can_push = branch_model.can_push,
     #     )
-        

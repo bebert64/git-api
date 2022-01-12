@@ -8,8 +8,9 @@ if TYPE_CHECKING:
 
 
 class GitRepositoryManager:
-
-    def __init__(self, entities_repository: IEntitiesRepository, api_provider: APIProvider):
+    def __init__(
+        self, entities_repository: IEntitiesRepository, api_provider: APIProvider
+    ):
         self._entities_repository = entities_repository
         self._api_provider = api_provider
 
