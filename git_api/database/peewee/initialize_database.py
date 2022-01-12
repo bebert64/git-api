@@ -12,18 +12,17 @@ class DatabaseInitializerPeewee:
         assert isinstance(self, IDatabaseInitializer)
 
     @staticmethod
-    def init_db(db_path: Path) -> None:
+    def init_and_connect_db(db_path: Path) -> None:
         peewee_database.init(db_path, pragmas={"foreign_keys": 1})
+        peewee_database.connect()
 
     @staticmethod
     def create_empty_database(db_path: Path) -> None:
         models = BaseModel.__subclasses__()
-        peewee_database.init(db_path, pragmas={"foreign_keys": 1})
-        peewee_database.connect()
+        DatabaseInitializerPeewee.init_and_connect_db(db_path)
         peewee_database.create_tables(models)
 
     @staticmethod
     def reconnect(db_path: Path) -> None:
         peewee_database.close()
-        peewee_database.init(db_path, pragmas={"foreign_keys": 1})
-        peewee_database.connect()
+        DatabaseInitializerPeewee.init_and_connect_db(db_path)

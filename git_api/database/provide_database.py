@@ -20,7 +20,7 @@ class DatabaseProvider:
             db_path.unlink(missing_ok=True)
             self._database_initializer.create_empty_database(db_path)
         else:
-            self._database_initializer.init_db(db_path)
+            self._database_initializer.init_and_connect_db(db_path)
 
     def save_as(self, db_path: Path) -> None:
         assert self.database_path is not None
@@ -44,7 +44,7 @@ class DatabaseProvider:
 
 @runtime_checkable
 class IDatabaseInitializer(Protocol):
-    def init_db(self, db_path: Path) -> None:
+    def init_and_connect_db(self, db_path: Path) -> None:
         ...
 
     def create_empty_database(self, db_path: Path) -> None:
