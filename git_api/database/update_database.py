@@ -16,9 +16,15 @@ if TYPE_CHECKING:
         JSONParser,
     )
     from git_api.configuration import ConfigProvider
-    from git_api.database import IRepoEntities
     from git_api.commons.types import GitlabId
-    from git_api.commons.entities_gitlab import Group, Member, Project
+    from git_api.commons.entities_gitlab import (
+        Group,
+        Member,
+        Project,
+        Branch,
+        Commit,
+        EntityGitlab,
+    )
 
 
 def iterate_over_root_groups(func: Callable) -> Callable:
@@ -109,17 +115,26 @@ class DatabaseUpdater:
 
 @runtime_checkable
 class IRepoEntities(Protocol):
-    def save(self, group: Group) -> None:
+    def save(self, entity: EntityGitlab) -> None:
         ...
 
-    def get_group_by_id(self, group_id: GitlabId) -> Optional[Group]:
+    def get_group(self, group_id: GitlabId) -> Optional[Group]:
         ...
 
     def get_groups_all(self) -> List[Group]:
         ...
 
-    def get_member_by_id(self, member_id: GitlabId) -> Optional[Member]:
+    def get_member(self, member_id: GitlabId) -> Optional[Member]:
         ...
 
     def get_projects_all(self) -> List[Project]:
+        ...
+
+    def get_branches_all(self) -> List[Branch]:
+        ...
+
+    def get_commit(self, gitlab_id: GitlabId) -> Commit:
+        ...
+
+    def get_commits_all(self) -> List[Commit]:
         ...
