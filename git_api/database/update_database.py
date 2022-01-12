@@ -51,13 +51,15 @@ class DatabaseUpdater:
     @iterate_over_root_groups
     def update_master_data(self, root_group_path: GitlabId) -> None:
         master_data_json = self._api_provider.get_master_data_json()
-        groups, projects, members = self._json_parser.parse_master_data(master_data_json)
+        groups, projects, members = self._json_parser.parse_master_data(
+            master_data_json
+        )
         for group in groups:
-            self._entities_repository.save_group(group)
+            self._entities_repository.save(group)
         for project in projects:
-            self._entities_repository.save_project(project)
+            self._entities_repository.save(project)
         for member in members:
-            self._entities_repository.save_member(member)
+            self._entities_repository.save(member)
         self._update_branches()
 
     def update_transactions(self) -> None:
@@ -73,7 +75,7 @@ class DatabaseUpdater:
             for branch in branches:
                 branch.gitlab_id = f"{project.gitlab_id}_{branch.name}"
                 branch.project = project
-                self._entities_repository.save_branch(branch)
+                self._entities_repository.save(branch)
             print(f"{counter} / {len(projects)}")
             counter += 1
 
@@ -81,11 +83,13 @@ class DatabaseUpdater:
         branches = self._entities_repository.get_branches_all()
         counter = 1
         for branch in branches:
-            commits_json = self._api_provider.get_commits(branch.project.gitlab_id, branch.name)
+            commits_json = self._api_provider.get_commits(
+                branch.project.gitlab_id, branch.name
+            )
             commits = self._json_parser.parse_commits(commits_json)
             for commit in commits:
                 commit.branch = branch
-                self._entities_repository.save_commit(commit)
+                self._entities_repository.save(commit)
             print(f"{counter} / {len(branches)}")
             counter += 1
 
@@ -98,7 +102,7 @@ class DatabaseUpdater:
             for tag in tags:
                 commit = self._entities_repository.get_commit(tag.gitlab_id)
                 tag.commit = commit
-                self._entities_repository.save_tag(tag)
+                self._entities_repository.save(tag)
             print(f"{counter} / {len(projects)}")
             counter += 1
 
