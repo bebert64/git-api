@@ -1,2 +1,4 @@
 Rapports d'anomalie
 Lier les commit à des Member, avec une correspondance entre username et User
+Add MessagePresenter
+Add gui

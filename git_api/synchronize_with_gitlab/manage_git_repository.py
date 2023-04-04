@@ -15,5 +15,8 @@ class GitRepositoryManager:
     def protect_all_default_branches(self) -> None:
         for project in self._repo_entities.get_projects_all():
             self._api_provider.modify_branch_protection(
-                project.gitlab_id, project.default_branch, "0", "30"
+                project.gitlab_id,
+                project.default_branch,
+                push_access_level="0",
+                merge_access_level="30",
             )
